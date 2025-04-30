@@ -1,4 +1,3 @@
-import { json } from 'express'
 import generateToken from '../lib/token.js'
 import User from '../model/user.js'
 import bcrypt from 'bcryptjs'
@@ -39,8 +38,6 @@ export const signup = async (req,res)=>{
             email:newUser.email,
             profilePic:newUser.profilePic,
         })
-
-
     } catch (error) {
         console.log("Error in signup controller "+error.message)
         res.status(500).json({message:"Internal Server error"})
@@ -67,7 +64,6 @@ export const login = async (req,res)=>{
                 message:'Invalid Credentials'
             })
         }
-        // add the jwt token here
         generateToken(user._id,res);
         return res.status(200).json({
             userId:user._id,
