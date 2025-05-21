@@ -46,3 +46,70 @@ export const viewFinance = async (req,res) =>{
         res.status(500).json({message: "Internal Server Error"});
     }
 }
+
+export const deleteFinance = async (req, res)=>{
+    const {finId} = req.params
+    try{
+        if(!finId){
+            return res.status(400).json({message: "FinId not present"})
+        }
+        const financeData = await Finances.findByIdAndDelete(finId);
+        if(!financeData){
+            return res.status(400).json({message: "Data Not Found"})
+        }
+        return res.status(200).json({message: "Data Deleted Successfully"})
+    }catch(error){
+        console.log("Error in deleteFinance Controller "+error.message);
+        res.status(500).json({message: "Internal Server Error"})
+    }
+}
+
+export const updateFinance = async (req, res)=>{
+    const {finId} = req.params
+    const {flowType, amount, description, place} = req.body;
+
+    try{
+        if(!finId){
+            return res.status(400).json({message:"finId not present"})
+        }
+        if(!flowType && !amount && !description && !place){
+            return res.status(400).json({message: "Atleast one field is required"})
+        }
+
+        const financeEntry = await Finances.findById(finId);
+        if(!financeEntry){
+            return res.status(400).json({message: "No record found"})
+        }
+        if(flowType){
+            if(flowType.toLowerCase() !== "income" && flowType.toLowerCase() !== "expense"){
+                return res.status(400).json({message: "Flow type should be either income or expense"});
+            }
+            const updateEntry = await Finances.findByIdAndUpdate(finId,{
+                flowType: flowType.toLowerCase()
+            })
+        }
+        if(amount){
+            if(amount<=0){
+                return res.status(400).json({message:"Amount should greater than 0"});
+            }
+            const updateEntry = await Finances.findByIdAndUpdate(finId,{
+                amount: amount
+            })
+        }
+        if(description){
+            const updateEntry = await Finances.findByIdAndUpdate(finId,{
+                description: description
+            })
+        }
+        if(place){
+            const updateEntry = await Finances.findByIdAndUpdate(finId,{
+                place: place
+            })
+        }
+        const updatedFinance = await Finances.findById(finId);
+        return res.status(200).json(updatedFinance);
+    }catch(error){
+        console.log("Error in updateFinance Controller "+error.message)
+        return res.status(500).json({message: "Internal Server Error"})
+    }
+}
