@@ -4,12 +4,17 @@ import connectDB from "./lib/mongodb.js";
 import authRouter from "./routes/userRoutes.js";
 import financeRouter from "./routes/financeRoutes.js";
 import cookieParser from "cookie-parser";
-
+import cors from "cors"
 const app = express();
 dotenv.config();
 
 app.use(express.json()) // to parse the incoming request with JSON payloads
 app.use(cookieParser())
+
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+}))
 app.use('/api/auth',authRouter)
 app.use('/api/finances',financeRouter)
 
