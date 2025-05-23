@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuthStore } from '../store/authStore'
+import toast from 'react-hot-toast'
 
 const Signup = () => {
   const {authUser, signUp, isSigningUp} = useAuthStore()
@@ -8,16 +9,16 @@ const Signup = () => {
       const [password, setPassword] = useState('')
       function validateForm(){
           if(email.trim()==="" || name.trim()===""  || password.trim()===""){
-          console.log("All fields are required")
+          toast.error("All fields are required")
           return false;
           }
           if(password.trim().length<6){
-          console.log("Password must be min of 6 chars")
+          toast.error("Password must be min of 6 chars")
           return false;
           }
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!emailRegex.test(email.trim())) {
-          console.log("Invalid email format");
+          toast.error("Invalid email format");
           return false;
           }
           return true

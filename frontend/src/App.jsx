@@ -1,9 +1,10 @@
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
-import Home from "./components/Home";
+import Home from "./pages/Home";
 import { useAuthStore } from "./store/authStore";
-import Login from "./components/login";
+import Login from "./pages/login";
 import { useEffect } from "react";
-import Signup from "./components/signup";
+import Signup from "./pages/signup";
+import AddFinances from "./pages/AddFinances";
 const App = () => {
   const {authUser, checkAuth, isCheckingAuth} = useAuthStore()
   useEffect(() => {
@@ -34,6 +35,11 @@ const App = () => {
                 path="/signup"
                 element={!authUser ? <Signup /> : <Navigate to="/" />}
               />
+              <Route 
+                path="/add-finance"
+                element={authUser? <AddFinances/> : <Navigate to="/login"/>}
+              />
+               
             </Routes>
           </BrowserRouter>
         </div>

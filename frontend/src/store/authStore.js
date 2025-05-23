@@ -13,8 +13,12 @@ export const useAuthStore = create((set)=>({
         try {
             const res = await axiosInstance.post('/auth/signup', data)
             set({authUser: res.data})    
+            toast.success("Signup successful")
         } catch (error) {
             console.log("Error in signup function in useAuthStore "+error.message)
+            if(error.response.status===400){
+                toast.error("Email already exists")
+            }
         }finally{
             set({isSigningUp:false})
         }
@@ -27,7 +31,7 @@ export const useAuthStore = create((set)=>({
             toast.success("Login successful")    
         } catch (error) {
             console.log("Error in login function in useAuthStore "+error.message)
-            toast.error("Login failed")
+            toast.error("Invalid Credentials")
         }finally{
             set({isLoggingIn:false})
         }
