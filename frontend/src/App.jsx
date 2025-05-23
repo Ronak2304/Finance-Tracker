@@ -5,6 +5,7 @@ import Login from "./pages/login";
 import { useEffect } from "react";
 import Signup from "./pages/signup";
 import AddFinances from "./pages/AddFinances";
+import ViewFinances from "./pages/ViewFinances";
 const App = () => {
   const {authUser, checkAuth, isCheckingAuth} = useAuthStore()
   useEffect(() => {
@@ -39,7 +40,10 @@ const App = () => {
                 path="/add-finance"
                 element={authUser? <AddFinances/> : <Navigate to="/login"/>}
               />
-               
+               <Route
+                path="/view-finances"
+                element={authUser? <ViewFinances />: <Navigate to="/login"/>}
+               />
             </Routes>
           </BrowserRouter>
         </div>

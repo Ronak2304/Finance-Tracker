@@ -4,12 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 
 const Home = () => {
-  const {logout, authUser} = useAuthStore() 
+  const {authUser} = useAuthStore() 
   const navigate = useNavigate()
-  const handleLogout = async() =>{ 
-    await logout()
-    navigate('/login')
-  }
   return (
     <div className="h-screen bg-gray-100">
       <Navbar />
@@ -21,10 +17,10 @@ const Home = () => {
         )}
       </div>
       <div className='flex gap-10'>
-        <div onClick={()=>navigate('/add-finance')} >
+        <div onClick={()=>navigate('/add-finance')} className='cursor-pointer'>
           Add Finance
         </div>
-        <div>
+        <div onClick={()=>navigate('/view-finances')} className='cursor-pointer'>
           View Finance
         </div>
       </div>
