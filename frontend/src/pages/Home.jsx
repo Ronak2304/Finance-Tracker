@@ -2,6 +2,7 @@ import React from 'react'
 import { useAuthStore } from '../store/authStore'
 import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
+import Lifetimetotal from '../components/Lifetimetotal'
 
 const Home = () => {
   const {authUser} = useAuthStore() 
@@ -23,6 +24,10 @@ const Home = () => {
         <div onClick={()=>navigate('/view-finances')} className='cursor-pointer'>
           View Finance
         </div>
+      </div>
+
+      <div>
+        <Lifetimetotal />
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useAuthStore } from "../store/authStore"
 import toast from "react-hot-toast"
 import { useFinStore } from "../store/financesStore"
