@@ -8,6 +8,7 @@ const ViewFinances = () => {
     useEffect(() => {
         viewFinances()
     }, [viewFinances])
+    console.log(finances)
     
     const filteredFinances = finances.filter((finance)=>{
         return finance.description.toLowerCase().includes(searchedTransac.toLowerCase())
@@ -17,9 +18,9 @@ const ViewFinances = () => {
         deleteFinance(finId)
     }
 
-    const handleUpdate = (finId) => {
-        updateFinance(finId)
-    }
+    // const handleUpdate = (finId) => {
+    //     updateFinance(finId)
+    // }
 
     return (
         <div>
@@ -46,11 +47,11 @@ const ViewFinances = () => {
                                         <div onClick={()=>handleDelete(finance._id)} className="cursor-pointer text-red-500">
                                             delete
                                         </div>
-                                        <div>
+                                        {/* <div>
                                             <h2 onClick={()=>handleUpdate(finance._id)} className="cursor-pointer text-blue-500">
                                                 update
                                             </h2>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             ))}

@@ -1,14 +1,15 @@
-import React from 'react'
 import { useAuthStore } from '../store/authStore'
 import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Lifetimetotal from '../components/Lifetimetotal'
+import VisualizeChart from '../components/VisualizeChart'
+import ContributionGraph from '../components/ContributionGraph'
 
 const Home = () => {
   const {authUser} = useAuthStore() 
   const navigate = useNavigate()
   return (
-    <div className="h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100">
       <Navbar />
       <div>
         {authUser && (
@@ -28,6 +29,14 @@ const Home = () => {
 
       <div>
         <Lifetimetotal />
+      </div>
+
+      <div>
+        <VisualizeChart />
+      </div>
+
+      <div>
+        <ContributionGraph />
       </div>
     </div>
   )

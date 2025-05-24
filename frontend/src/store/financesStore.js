@@ -20,7 +20,6 @@ export const useFinStore = create((set,get)=>({
         try {
             const res = await axiosInstance.get('/finances/getFinance')
             set({finances: res.data})
-            toast.success("Finances fetched successfully")
         } catch (error) {
             console.log("Error in viewFinances function in useFinStore "+error.message)
             toast.error("Error in viewing finances")

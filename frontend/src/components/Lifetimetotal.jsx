@@ -15,7 +15,6 @@ const Lifetimetotal = () => {
         // const expenseAmount = totalExpense.reduce((acc, finance) => acc + finance.amount, 0)
         let income = 0
         let expense = 0
-        let netAmount = 0
 
         totalIncome.forEach(fin=>{
             income+=fin.amount          

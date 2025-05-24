@@ -1,1 +1,38 @@
 @import "tailwindcss";
+/* Colors */
+.color-empty {
+  fill: #e0f2fe;
+  rx: 4;
+  ry: 4;
+}
+.color-blue-1 {
+  fill: #bae6fd;
+  rx: 4;
+  ry: 4;
+}
+.color-blue-2 {
+  fill: #60a5fa;
+  rx: 4;
+  ry: 4;
+}
+.color-blue-3 {
+  fill: #3b82f6;
+  rx: 4;
+  ry: 4;
+}
+.color-blue-4 {
+  fill: #1d4ed8;
+  rx: 4;
+  ry: 4;
+}
+
+/* Ensure all weekday labels (Sun-Sat) are visible */
+.react-calendar-heatmap text {
+  font-size: 10px;
+  fill: #4b5563; /* Tailwind gray-600 */
+}
+
+/* Optional: space out the calendar blocks slightly for clarity */
+.react-calendar-heatmap rect {
+  shape-rendering: geometricPrecision;
+}
