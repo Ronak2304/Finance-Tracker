@@ -1,9 +1,9 @@
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import Home from "./pages/Home";
 import { useAuthStore } from "./store/authStore";
-import Login from "./pages/login";
+import Login from "./pages/Login";
 import { useEffect } from "react";
-import Signup from "./pages/signup";
+import Signup from "./pages/Signup";
 import AddFinances from "./pages/AddFinances";
 import ViewFinances from "./pages/ViewFinances";
 const App = () => {
@@ -12,10 +12,11 @@ const App = () => {
     checkAuth()
   }, [checkAuth])
   
+
   if(isCheckingAuth){
     return (
       <div className="flex justify-center items-center h-screen">
-        <h1 className="text-4xl font-bold">Loading...</h1>
+        
       </div>
     )
   }

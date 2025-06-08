@@ -42,7 +42,7 @@ const Lifetimetotal = () => {
       calculateTotal()
     }, [finances])
     return (
-      <div>
+      <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-4xl mx-auto mt-6">
           <div>
               <h1 className="text-3xl font-bold">Lifetime Incomes/Expenses</h1>
           </div>

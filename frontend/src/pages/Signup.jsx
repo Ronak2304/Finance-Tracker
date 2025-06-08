@@ -1,79 +1,104 @@
-import { useState } from 'react'
-import { useAuthStore } from '../store/authStore'
-import toast from 'react-hot-toast'
+import { useState } from 'react';
+import { useAuthStore } from '../store/authStore';
+import toast from 'react-hot-toast';
 
 const Signup = () => {
-  const {authUser, signUp, isSigningUp} = useAuthStore()
-      const [email, setEmail] = useState('')
-      const [name, setName] = useState('')
-      const [password, setPassword] = useState('')
-      function validateForm(){
-          if(email.trim()==="" || name.trim()===""  || password.trim()===""){
-          toast.error("All fields are required")
-          return false;
-          }
-          if(password.trim().length<6){
-          toast.error("Password must be min of 6 chars")
-          return false;
-          }
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(email.trim())) {
-          toast.error("Invalid email format");
-          return false;
-          }
-          return true
-      }
-      const handleSubmit = (e) =>{
-          e.preventDefault()
-          if(validateForm()){ 
-              signUp({
-                  email: email,
-                  fullName: name,
-                  password: password
-              }) 
-              
-              if(authUser){
-                  console.log("SignUp successful")
-              }
-  
-              setEmail('')
-              setName('')
-              setPassword('')
-          }
-      }
-      return (
-      <div className='flex justify-center items-center h-screen'>
-          <div className='border-2 border-solid border-black rounded-2xl shadow-lg '>
-              <div className='p-5'>
-                  <h1 className='text-4xl font-bold text-center'>Sign Up</h1>
-              </div>
-              <div className='p-5'>
-                  <form className='flex flex-col gap-5' onSubmit={handleSubmit}>
-                      <div className='flex gap-10 justify-between items-center'>
-                          <h1>Enter Your Full Name:</h1>
-                          <input className='border-2 border-solid boreder-black rounded-2xl p-1 pl-2' type="text" value={name} onChange={(e)=>setName(e.target.value)}/>
-                      </div>
-                      <div className='flex gap-10 justify-between items-center'>
-                          <h1>Enter Your Email:</h1>
-                          <input className='border-2 border-solid boreder-black rounded-2xl p-1 pl-2' type="text" value={email} onChange={(e)=>setEmail(e.target.value)}/>
-                      </div>
-                      <div className='flex gap-10 justify-between items-center'>
-                          <h1>Enter Your Password:</h1>
-                          <input className='border-2 border-solid boreder-black rounded-2xl p-1 pl-2' type="text" value={password} onChange={(e)=>setPassword(e.target.value)}/>
-                      </div>
-                      <div>
-                        Have an Account? <a href="/login" className='text-blue-500'>Login</a>
-                      </div>
-                      <div className='flex gap-10 items-center justify-center'>
-                          <button className='bg-blue-500 text-white font-bold py-2 px-4 rounded-2xl' type="submit">
-                              Submit
-                          </button>
-                      </div>
-                  </form>
-              </div>
-          </div>
-      </div>
-    )
-}
+  const { authUser, signUp, isSigningUp } = useAuthStore();
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
-export default Signup
+  const validateForm = () => {
+    if (!email.trim() || !name.trim() || !password.trim()) {
+      toast.error("All fields are required");
+      return false;
+    }
+    if (password.trim().length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return false;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      toast.error("Invalid email format");
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      signUp({
+        email,
+        fullName: name,
+        password,
+      });
+
+      if (authUser) {
+        console.log("SignUp successful");
+      }
+
+      setEmail('');
+      setName('');
+      setPassword('');
+    }
+  };
+
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-base-200">
+      <div className="w-full max-w-md bg-base-100 text-base-content p-8 rounded-2xl shadow-lg">
+        <h1 className="text-3xl font-bold text-center mb-6">Create Account</h1>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="block font-medium mb-1">Full Name</label>
+            <input
+              type="text"
+              className="input input-bordered w-full"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="John Doe"
+            />
+          </div>
+
+          <div>
+            <label className="block font-medium mb-1">Email</label>
+            <input
+              type="email"
+              className="input input-bordered w-full"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="example@email.com"
+            />
+          </div>
+
+          <div>
+            <label className="block font-medium mb-1">Password</label>
+            <input
+              type="password"
+              className="input input-bordered w-full"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+            />
+          </div>
+
+          <div className="text-sm">
+            Already have an account?{' '}
+            <a href="/login" className="link link-primary">Login</a>
+          </div>
+
+          <button
+            type="submit"
+            disabled={isSigningUp}
+            className="btn btn-primary w-full"
+          >
+            {isSigningUp ? "Signing Up..." : "Sign Up"}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Signup;

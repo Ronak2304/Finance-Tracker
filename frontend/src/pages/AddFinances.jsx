@@ -1,89 +1,117 @@
-import { useState } from "react"
-import { useAuthStore } from "../store/authStore"
-import toast from "react-hot-toast"
-import { useFinStore } from "../store/financesStore"
-import Navbar from "../components/Navbar"
+import { useState } from "react";
+import { useAuthStore } from "../store/authStore";
+import toast from "react-hot-toast";
+import { useFinStore } from "../store/financesStore";
+import Navbar from "../components/Navbar";
 
 const AddFinances = () => {
-    const {authUser} = useAuthStore()
-    const {addFinance} = useFinStore()
-    const [amount, setAmount] = useState(0)
-    const [description, setDescription] = useState('')
-    const [place, setPlace] = useState('')
-    const [flowType, setFlowType] = useState('expense')
-    
-    function validateFinData(){
-        if(Number(amount)<=0){
-            return false
-        }
-        if(description.trim()===""){
-            return false
-        }
-        if(place.trim()===""){
-            return false
-        }
-        return true
-    }
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        if(!validateFinData()){
-            toast.error("All fields are required!")
-        }
+  const { authUser } = useAuthStore();
+  const { addFinance } = useFinStore();
 
-        addFinance({
-            userId: authUser._id,
-            flowType: flowType,
-            amount: Number(amount),
-            description: description,
-            place: place
-        })
-        
-        setAmount(0)
-        setDescription('')
-        setPlace('')
-        setFlowType('expense')
-    }
+  const [amount, setAmount] = useState(0);
+  const [description, setDescription] = useState("");
+  const [place, setPlace] = useState("");
+  const [flowType, setFlowType] = useState("expense");
 
+  const validateFinData = () => {
     return (
-        <div>
-            <Navbar />
-            <div>
-                <h1 className="text-3xl font-bold">Add Finances</h1>
-            </div>
-            <div>
-                <form onSubmit={handleSubmit}>
-                    <div className="flex gap-10">
-                        <h2 style={{backgroundColor: flowType==="income"? "lightblue":""}} className="p-2 rounded-lg cursor-pointer" onClick={()=>setFlowType("income")}>
-                            Income
-                        </h2>
-                        <h2 style={{backgroundColor: flowType==="expense"? "lightblue":""}} className="p-2 rounded-lg cursor-pointer" onClick={()=>setFlowType("expense")}>
-                            Expense
-                        </h2>
-                    </div>
+      Number(amount) > 0 &&
+      description.trim() !== "" &&
+      place.trim() !== ""
+    );
+  };
 
-                    <div>
-                        <h1>Enter Amount:</h1>
-                        <input className="border-2 border-solid boreder-black rounded-2xl p-1 pl-2" type="text" value={amount} onChange={(e)=>setAmount(e.target.value)}/>
-                    </div>
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-                    <div>
-                        <h1>Enter Description:</h1>
-                        <textarea className="border-2 border-solid boreder-black rounded-2xl p-1 pl-2" type="text" value={description} onChange={(e)=>setDescription(e.target.value)}/>
-                    </div>
-                    <div>
-                        <h1>Enter Place:</h1>
-                        <textarea className="border-2 border-solid boreder-black rounded-2xl p-1 pl-2" type="text" value={place} onChange={(e)=>setPlace(e.target.value)}/>
-                    </div>
+    if (!validateFinData()) {
+      toast.error("All fields are required!");
+      return;
+    }
 
-                    <div>
-                        <button className="bg-blue-500 text-white p-2 rounded-lg" type="submit">
-                            Add Finance
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    )
-}
+    addFinance({
+      userId: authUser._id,
+      flowType,
+      amount: Number(amount),
+      description,
+      place,
+    });
 
-export default AddFinances
+    // Reset form
+    setAmount(0);
+    setDescription("");
+    setPlace("");
+    setFlowType("expense");
+
+    toast.success("Finance added!");
+  };
+
+  return (
+    <div className="min-h-screen bg-base-200">
+      <Navbar />
+      <div className="p-6 max-w-2xl mx-auto bg-base-100 rounded-lg shadow mt-6">
+        <h1 className="text-3xl font-bold mb-6 text-center">Add Finances</h1>
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          {/* Toggle Income/Expense */}
+          <div className="flex justify-center gap-4">
+            <button
+              type="button"
+              className={`btn ${flowType === "income" ? "btn-primary" : "btn-ghost"}`}
+              onClick={() => setFlowType("income")}
+            >
+              Income
+            </button>
+            <button
+              type="button"
+              className={`btn ${flowType === "expense" ? "btn-primary" : "btn-ghost"}`}
+              onClick={() => setFlowType("expense")}
+            >
+              Expense
+            </button>
+          </div>
+
+          {/* Amount */}
+          <div>
+            <label className="label">Amount</label>
+            <input
+              type="text"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              className="input input-bordered w-full"
+              placeholder="Enter amount"
+            />
+          </div>
+
+          {/* Description */}
+          <div>
+            <label className="label">Description</label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="textarea textarea-bordered w-full"
+              placeholder="e.g. Dinner, Bus fare"
+            ></textarea>
+          </div>
+
+          {/* Place */}
+          <div>
+            <label className="label">Place</label>
+            <textarea
+              value={place}
+              onChange={(e) => setPlace(e.target.value)}
+              className="textarea textarea-bordered w-full"
+              placeholder="e.g. Restaurant, Office"
+            ></textarea>
+          </div>
+
+          <button type="submit" className="btn btn-success mt-4">
+            Add Finance
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default AddFinances;

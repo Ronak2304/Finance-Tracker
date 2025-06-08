@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@plugin "daisyui" {
+   themes: light --default, dark --prefersdark, acid, retro, dim, abyss, coffee;
+ }
+
 /* Colors */
 .color-empty {
   fill: #e0f2fe;
@@ -35,4 +39,10 @@
 /* Optional: space out the calendar blocks slightly for clarity */
 .react-calendar-heatmap rect {
   shape-rendering: geometricPrecision;
+}
+
+.box{
+  border: 1px;
+  padding:2px;
+  border-radius: 25%;
 }
