@@ -44,7 +44,6 @@ const ContributionGraph = () => {
           return 'color-blue-1';
         }}
         showWeekdayLabels={true}
-        weekdayLabels={['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']}
       />
     </div>
   );

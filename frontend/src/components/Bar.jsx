@@ -16,11 +16,10 @@ const BarGraph = ({ title, income, expenses }) => {
     labels: ['Income', 'Expenses'],
     datasets: [
       {
-        label: 'Amount',
         data: [income, expenses],
         backgroundColor: ['#22c55e', '#ef4444'], // green for income, red for expenses
-        borderRadius: 6,
-        barPercentage: 0.5,
+        borderRadius: 20,
+        barPercentage: 0.5, // adjust bar width
       },
     ],
   };

@@ -49,6 +49,7 @@ const Home = () => {
       {/* Bottom: Chart */}
       <div className="card bg-base-100 items-center shadow p-4">
         <VisualizeChart />
+        
       </div>
     </div>
 
