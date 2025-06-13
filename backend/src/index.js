@@ -27,11 +27,14 @@ app.use(cors({
 }))
 app.use('/api/auth',authRouter)
 app.use('/api/finances',financeRouter)
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static(path.join(__dirname,'../frontend/dist')))
-    app.get('*',(req,res)=>{
-        res.sendFile(path.resolve(__dirname,'../frontend','dist','index.html'))
-    })
+import fs from 'fs'
+
+const distPath = path.join(__dirname, '../frontend/dist');
+if (process.env.NODE_ENV === 'production' && fs.existsSync(distPath)) {
+  app.use(express.static(distPath));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
 }
 
 
