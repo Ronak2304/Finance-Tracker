@@ -4,7 +4,8 @@
   "description": "This is the package.json file for the backend part of my finance tracker app",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "author": "Ronak Nangia",
   "license": "ISC",
