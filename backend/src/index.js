@@ -26,7 +26,7 @@ app.use('/api/auth',authRouter)
 app.use('/api/finances',financeRouter)
 import fs from 'fs'
 
-const distPath = path.join(__dirname, '../frontend/dist');
+const distPath = path.join(__dirname, '../../frontend/dist');
 if (process.env.NODE_ENV === 'production' && fs.existsSync(distPath)) {
   app.use(express.static(distPath));
   app.get('*', (req, res) => {
