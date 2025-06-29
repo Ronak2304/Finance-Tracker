@@ -15,16 +15,13 @@ app.use(express.json()) // to parse the incoming request with JSON payloads
 app.use(cookieParser())
 
 app.use(cors({
-    origin: function(origin, callback){
-        if(!origin || process.env.ALLOWED_ORIGINS.split(',').includes(origin)){
-            return callback(null,true)
-        }
-        else{
-            callback(new Error("Not allowed by CORS"))
-        }
-    },
-    credentials: true,
-}))
+    origin: [
+        'https://finance-tracker-frontend-qpxx.onrender.com',
+        'http://localhost:5173' // for local dev
+    ],
+    credentials: true
+}));
+
 app.use('/api/auth',authRouter)
 app.use('/api/finances',financeRouter)
 import fs from 'fs'
