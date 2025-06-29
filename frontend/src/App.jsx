@@ -39,11 +39,11 @@ const App = () => {
               />
               <Route 
                 path="/add-finance"
-                element={authUser? <AddFinances/> : <Navigate to="/login"/>}
+                element={authUser? <AddFinances/> : <Navigate to="/Login"/>}
               />
                <Route
                 path="/view-finances"
-                element={authUser? <ViewFinances />: <Navigate to="/login"/>}
+                element={authUser? <ViewFinances />: <Navigate to="/Login"/>}
                />
             </Routes>
           </BrowserRouter>
